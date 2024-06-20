@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Style Transfer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-jU2tJxhXVExb3L6oXcNcQvjy5M57MyHJiI+Bg8KCZX7Vl9f8pOXHpeT8Jf//PDe0QbdThDeBEM6Z4HPJK8FyCg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://kit.fontawesome.com/d3b39d25da.js" crossorigin="anonymous"></script>
+<style>
+    .navbar-center {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+    }
+
+</style>
+</head>
+<body>
+   <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="">
+           NST
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start"></div> <!-- Empty div to push items to center -->
+        <div class="navbar-center">
+            <a class="navbar-item" href=./index.html">
+                Home
+            </a>
+            <a class="navbar-item" href="./Images/About.html">
+                About
+            </a>
+            <a class="navbar-item" href="https://github.com/AbhinavSingh0601">
+                <span class="icon">
+                <i class="fa-brands fa-github"></i>
+            </span>
+            </a>
+        </div>
+
+
+
+    </div>
+</nav>
+
+
+    <section class="section">
+        <div class="container has-text-centered">
+            <div class="box">
+                <h1 class="title">Neural Style Transfer</h1>
+                <form id="upload-form">
+                    <div class="field is-grouped is-grouped-centered">
+                        <div class="control">
+                            <div class="file is-primary">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" id="content-image" name="content_image" accept="image/*" required>
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                            Content Image
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="file is-primary">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" id="style-image" name="style_image" accept="image/*" required>
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                            Style Image
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-grouped is-grouped-centered">
+                        <div class="control">
+                            <button class="button is-link is-inverted button is-large" type="submit">Upload</button>
+                        </div>
+                    </div>
+                    <br>
+
+                </form>
+                <h2 class="title is-4">Result Image</h2>
+                <img id="result-image" src="" alt="Result" style="max-width: 100%; height: auto;">
+                <br>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('content_image', document.getElementById('content-image').files[0]);
+            formData.append('style_image', document.getElementById('style-image').files[0]);
+
+            const response = await fetch('http://127.0.0.1:5000/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            document.getElementById('result-image').src = `http://127.0.0.1:5000${result.output_image}`;
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

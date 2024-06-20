@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Style Transfer Documentation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-jU2tJxhXVExb3L6oXcNcQvjy5M57MyHJiI+Bg8KCZX7Vl9f8pOXHpeT8Jf//PDe0QbdThDeBEM6Z4HPJK8FyCg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .navbar-center {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        .section {
+            padding: 2rem 1.5rem;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        .image-container img {
+            max-width: 30%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                NST Documentation
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start"></div>
+            <div class="navbar-center">
+                <a class="navbar-item" href="../index.html">
+                    Home
+                </a>
+                <a class="navbar-item" href="#about">
+                    About NST
+                </a>
+                <a class="navbar-item" href="#how-it-works">
+                    How It Works
+                </a>
+                <a class="navbar-item" href="#examples">
+                    Examples
+                </a>
+                <a class="navbar-item" href="#references">
+                    References
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="about" class="section">
+        <div class="container">
+            <div class="content">
+                <h1 class="title">About Neural Style Transfer</h1>
+                <p>
+                    Neural Style Transfer (NST) is an algorithm used in the field of deep learning to combine the content of one image with the style of another image.
+                </p>
+                <p>
+                    The algorithm was first introduced by Gatys et al. in the paper <a href="https://arxiv.org/abs/1508.06576">"A Neural Algorithm of Artistic Style"</a>. NST uses deep neural networks to extract content and style features from input images, which are then combined to generate a new image that preserves the content of the original image while adopting the style of the reference image.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <div class="content">
+                <h1 class="title">How Neural Style Transfer Works</h1>
+                <p>
+                    Neural Style Transfer typically involves the following steps:
+                </p>
+                <ol>
+                    <li>Preprocess the content and style images.</li>
+                    <li>Initialize a target image (usually the content image or random noise).</li>
+                    <li>Use a pre-trained convolutional neural network (e.g., VGG19) to extract features from the content, style, and target images.</li>
+                    <li>Define a loss function that includes terms for content loss and style loss.</li>
+                    <li>Optimize the target image to minimize the total loss using gradient descent.</li>
+                </ol>
+                <p>
+                    The content loss measures how much the generated image deviates from the original content image, while the style loss measures the differences in style between the generated image and the style image.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="examples" class="section">
+        <div class="container">
+            <div class="content">
+                <h1 class="title">Examples of Neural Style Transfer</h1>
+                <div class="image-container">
+                    <img src="./vangogh.jpg" alt="Style Image">
+                    <img src="./dog.jpg" alt="Content Image">
+                    <img src="../Generated_Image/Generated_49.jpg" alt="Generated Image">
+                </div>
+                <p>
+                    The images above illustrate the style image, content image, and the resulting generated image after applying NST.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="references" class="section">
+        <div class="container">
+            <div class="content">
+                <h1 class="title">References</h1>
+                <ul>
+                    <li><a href="https://arxiv.org/abs/1508.06576">A Neural Algorithm of Artistic Style</a></li>
+                    <li><a href="https://arxiv.org/abs/1603.08155">Texture Networks: Feed-forward Synthesis of Textures and Stylized Images</a></li>
+                    <li><a href="https://arxiv.org/abs/1705.04058">Perceptual Losses for Real-Time Style Transfer and Super-Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
